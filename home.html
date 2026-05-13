@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Verna Coffee</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,800;0,900;1,700;1,800&family=Nunito+Sans:wght@300;400;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;width:100%}
+
+body{
+  font-family:'Nunito Sans',sans-serif;
+  background:#7a5230;
+  overflow-x:hidden;
+  min-height:100vh;
+}
+
+/* ── WRAPPER ── */
+.page{
+  width:100%;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  position:relative;
+  overflow:hidden;
+  /* hero.png — place in same folder */
+  background:url('hero.png') center center / cover no-repeat;
+  background-color:#7a5230;
+}
+
+/* colour tint overlay so bg image blends with the brown palette */
+.page::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:rgba(90,52,18,0.38);
+  pointer-events:none;
+  z-index:1;
+}
+
+/* ── WAVE SHADOWS (large diagonal palm/leaf shapes from reference) ── */
+.waves{
+  position:absolute;
+  inset:0;
+  width:100%;height:100%;
+  z-index:2;
+  pointer-events:none;
+}
+
+/* ── NAV ── */
+nav{
+  position:relative;
+  z-index:20;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:18px 36px;
+  gap:16px;
+}
+
+/* LOGO — logo.png, place in same folder */
+.logo{
+  display:flex;
+  align-items:center;
+  text-decoration:none;
+  flex-shrink:0;
+}
+.logo-img{
+  height:clamp(48px,6.5vw,72px);
+  width:auto;
+  display:block;
+  filter:drop-shadow(0 2px 6px rgba(0,0,0,0.25));
+}
+/* fallback text if logo.png missing */
+.logo-text{
+  display:none;
+  flex-direction:column;
+  line-height:1;
+}
+.logo-text .name{
+  font-family:'Nunito',sans-serif;
+  font-size:clamp(22px,3vw,32px);
+  font-weight:900;
+  color:#f5e6d0;
+  letter-spacing:0.5px;
+}
+.logo-text .sub{
+  font-size:8px;
+  color:rgba(245,230,208,0.55);
+  letter-spacing:3px;
+  text-transform:uppercase;
+  font-weight:300;
+  margin-top:2px;
+}
+
+/* centre pill */
+.nav-pill{
+  display:flex;
+  align-items:center;
+  gap:clamp(12px,2vw,24px);
+  background:rgba(255,255,255,0.10);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  border:1px solid rgba(255,255,255,0.18);
+  border-radius:100px;
+  padding:8px clamp(16px,2.2vw,28px);
+}
+.nav-pill a{
+  font-family:'Nunito Sans',sans-serif;
+  font-size:clamp(11px,1.1vw,13px);
+  font-weight:600;
+  color:rgba(255,255,255,0.88);
+  text-decoration:none;
+  white-space:nowrap;
+  transition:color .2s;
+}
+.nav-pill a:hover{color:#fff}
+
+/* Buy Now — solid cream pill */
+.btn-buy{
+  background:#f0dfc4;
+  border:none;
+  border-radius:100px;
+  padding:9px clamp(18px,2.2vw,28px);
+  color:#3a1e08;
+  font-family:'Nunito Sans',sans-serif;
+  font-size:clamp(11px,1.1vw,13px);
+  font-weight:700;
+  cursor:pointer;
+  white-space:nowrap;
+  flex-shrink:0;
+  transition:background .2s;
+  letter-spacing:0.2px;
+}
+.btn-buy:hover{background:#fff}
+
+/* ── HERO BODY ── */
+.hero{
+  position:relative;
+  z-index:10;
+  flex:1;
+  display:flex;
+  align-items:center;
+  padding:0 0 70px 0;
+  /* no right padding — product bleeds to edge */
+}
+
+/* LEFT: 50% width, padded */
+.copy{
+  flex:0 0 50%;
+  max-width:50%;
+  padding:0 0 0 clamp(24px,4vw,48px);
+  display:flex;
+  flex-direction:column;
+  gap:0;
+}
+
+.badge{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  margin-bottom:16px;
+}
+.badge svg{flex-shrink:0}
+.badge span{
+  font-family:'Nunito Sans',sans-serif;
+  font-size:clamp(9.5px,1vw,11.5px);
+  color:rgba(245,230,208,0.8);
+  font-weight:400;
+  letter-spacing:0.5px;
+}
+
+.headline{
+  font-family:'Nunito',sans-serif;
+  line-height:1.08;
+  margin-bottom:14px;
+}
+/* italic line — matches reference "Brewed to Awaken." */
+.headline .line1{
+  display:block;
+  font-style:italic;
+  font-weight:800;
+  font-size:clamp(28px,4.8vw,58px);
+  color:#f5e6d0;
+  letter-spacing:-0.5px;
+}
+/* bold upright line */
+.headline .line2{
+  display:block;
+  font-style:normal;
+  font-weight:900;
+  font-size:clamp(28px,4.8vw,58px);
+  color:#ffffff;
+  letter-spacing:-0.5px;
+}
+
+.subtext{
+  font-family:'Nunito Sans',sans-serif;
+  font-size:clamp(10.5px,1.05vw,13px);
+  color:rgba(245,230,208,0.72);
+  line-height:1.72;
+  font-weight:400;
+  max-width:290px;
+  margin-bottom:22px;
+}
+
+.cta-row{
+  display:flex;
+  align-items:center;
+  gap:18px;
+}
+/* outlined pill — Order Now */
+.btn-order{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  border:1.5px solid rgba(245,230,208,0.65);
+  background:rgba(245,230,208,0.08);
+  border-radius:100px;
+  padding:10px 20px;
+  color:#f5e6d0;
+  font-family:'Nunito Sans',sans-serif;
+  font-size:clamp(10.5px,1.05vw,13px);
+  font-weight:600;
+  cursor:pointer;
+  transition:background .2s,border-color .2s;
+  letter-spacing:0.2px;
+}
+.btn-order:hover{background:rgba(245,230,208,0.18);border-color:rgba(245,230,208,0.9)}
+.arrow-circle{
+  width:22px;height:22px;
+  background:rgba(245,230,208,0.2);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;flex-shrink:0;
+}
+.btn-find{
+  background:none;border:none;
+  font-family:'Nunito Sans',sans-serif;
+  font-size:clamp(10.5px,1.05vw,13px);
+  color:rgba(245,230,208,0.75);
+  font-weight:600;
+  cursor:pointer;
+  letter-spacing:0.2px;
+  transition:color .2s;
+  padding:0;
+}
+.btn-find:hover{color:#f5e6d0}
+
+/* RIGHT: 50% — product image fills height, bleeds edges */
+.product{
+  flex:0 0 50%;
+  max-width:50%;
+  position:relative;
+  align-self:stretch;
+  overflow:visible;
+}
+
+/* brand.png — place in same folder */
+.brand-img{
+  position:absolute;
+  /* sit in centre-right, bleed top and right */
+  top:-10px;
+  right:clamp(-60px,-5vw,-20px);
+  bottom:50px;
+  width:clamp(300px,48vw,560px);
+  height:calc(100% + 10px);
+  object-fit:contain;
+  object-position:bottom center;
+  display:block;
+  filter:drop-shadow(-14px 20px 40px rgba(0,0,0,0.45));
+  animation:float 5s ease-in-out infinite;
+  z-index:5;
+}
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-10px)}
+}
+
+/* rating row — bottom-left of product column, overlapping like reference */
+.rating{
+  position:absolute;
+  bottom:clamp(56px,8vw,80px);
+  left:clamp(0px,1vw,12px);
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+  z-index:15;
+}
+.stars{color:#f0a830;font-size:14px;letter-spacing:2px}
+.rating-label{
+  font-family:'Nunito Sans',sans-serif;
+  font-size:clamp(9px,1vw,11px);
+  color:rgba(245,230,208,0.8);
+  font-weight:400;
+}
+.avatars{display:flex;align-items:center;margin-top:2px}
+.av{
+  width:22px;height:22px;
+  border-radius:50%;
+  border:2px solid rgba(90,52,18,0.7);
+  margin-right:-6px;
+  font-size:7px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  color:#f5e6d0;overflow:hidden;
+}
+.av1{background:linear-gradient(135deg,#c47840,#6a3010)}
+.av2{background:linear-gradient(135deg,#a05828,#5a2808)}
+.av3{background:linear-gradient(135deg,#d49060,#8a4820)}
+.av4{background:linear-gradient(135deg,#804020,#3e1808)}
+
+/* ── BOTTOM BAR ── */
+footer{
+  position:relative;
+  z-index:10;
+  background:rgba(48,24,6,0.60);
+  border-top:1px solid rgba(245,230,208,0.10);
+  padding:14px clamp(20px,4vw,48px);
+  display:flex;
+  align-items:center;
+  justify-content:space-around;
+  flex-wrap:wrap;
+  gap:8px;
+}
+.drink{
+  display:flex;align-items:center;gap:9px;
+  font-family:'Nunito Sans',sans-serif;
+  font-size:clamp(11px,1.3vw,15px);
+  font-weight:600;
+  color:rgba(245,230,208,0.88);
+  white-space:nowrap;cursor:pointer;
+  transition:color .2s;
+  letter-spacing:0.2px;
+}
+.drink:hover{color:#fff}
+.leaf{width:clamp(20px,2.6vw,28px);height:auto;flex-shrink:0}
+
+/* ── RESPONSIVE ── */
+@media(max-width:860px){
+  .nav-pill{display:none}
+  nav{padding:14px 20px}
+
+  .hero{
+    flex-direction:column-reverse;
+    align-items:stretch;
+    padding:0 0 60px 0;
+  }
+  .copy{
+    flex:none;max-width:100%;
+    padding:16px 24px 0;
+    align-items:center;text-align:center;
+  }
+  .badge{justify-content:center}
+  .subtext{max-width:400px;text-align:center;margin-left:auto;margin-right:auto}
+  .cta-row{justify-content:center}
+
+  .product{
+    flex:none;max-width:100%;
+    height:clamp(240px,60vw,380px);
+  }
+  .brand-img{
+    position:relative;
+    top:auto;right:auto;bottom:auto;
+    width:clamp(200px,65vw,360px);
+    height:100%;
+    margin:0 auto;
+    display:block;
+  }
+  .rating{
+    position:relative;
+    bottom:auto;left:auto;
+    align-items:center;
+    padding:8px 0 0;
+    text-align:center;
+  }
+}
+@media(max-width:480px){
+  .brand-img{width:clamp(180px,78vw,300px)}
+  footer{justify-content:center;gap:8px 16px}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- WAVE SHAPES — large sweeping diagonal palm-leaf shadows matching reference -->
+<svg class="waves" viewBox="0 0 1200 560" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <!-- main large diagonal sweep top-right -->
+  <path d="M500,-20 C580,10 720,80 840,180 C930,260 980,340 960,430 C940,490 880,510 820,480 C740,440 680,340 640,250 C600,160 555,80 500,-20Z" fill="rgba(55,28,8,0.30)"/>
+  <!-- inner sweep -->
+  <path d="M600,0 C670,30 790,110 900,210 C970,270 1010,350 990,420 C970,470 910,490 860,460" fill="none" stroke="rgba(50,25,5,0.22)" stroke-width="2"/>
+  <!-- second outer leaf -->
+  <path d="M700,50 C760,30 880,100 980,200 C1050,265 1080,340 1060,410 C1040,460 990,475 940,450 C880,415 820,330 780,240 C745,160 720,100 700,50Z" fill="rgba(50,24,6,0.18)"/>
+  <!-- far right accent -->
+  <path d="M950,0 C1000,30 1060,100 1090,180 C1110,240 1100,300 1070,340" fill="none" stroke="rgba(45,22,5,0.15)" stroke-width="1.5"/>
+  <!-- bottom left accent leaf -->
+  <path d="M-40,280 C20,240 110,290 155,370 C185,420 175,475 130,490 C80,507 25,470 -5,410 C-35,355 -60,315 -40,280Z" fill="rgba(50,24,6,0.13)"/>
+</svg>
+
+<!-- NAV -->
+<nav>
+  <!-- logo.png: place in same folder as this file -->
+  <a class="logo" href="#">
+    <img class="logo-img" src="logo.png" alt="Verna Coffee"
+      onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+    <span class="logo-text">
+      <span class="name">Verna</span>
+      <span class="sub">Coffee Shop</span>
+    </span>
+  </a>
+
+  <div class="nav-pill">
+    <a href="#">Best Sellers</a>
+    <a href="#">About</a>
+    <a href="#">Testimonials</a>
+    <a href="#">FAQ</a>
+    <a href="#">Contact</a>
+  </div>
+
+  <button class="btn-buy">Buy Now</button>
+</nav>
+
+<!-- HERO -->
+<main class="hero">
+
+  <!-- LEFT copy -->
+  <div class="copy">
+    <div class="badge">
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+        <circle cx="7.5" cy="7.5" r="6.5" stroke="rgba(245,230,208,0.5)" stroke-width="1"/>
+        <path d="M7.5,3.5 C7.5,3.5 4.5,6.5 4.5,9.5 C4.5,11.2 5.8,12.2 7.5,12.2 C9.2,12.2 10.5,11.2 10.5,9.5 C10.5,6.5 7.5,3.5 7.5,3.5Z" fill="rgba(245,230,208,0.65)"/>
+      </svg>
+      <span>100% Ethically Sourced · Small-Batch Roasted</span>
+    </div>
+
+    <h1 class="headline">
+      <span class="line1">Brewed to Awaken.</span>
+      <span class="line2">Crafted to Inspire.</span>
+    </h1>
+
+    <p class="subtext">Start your day with more than just caffeine — sip bold flavor, rich aroma, and a moment of clarity in every cup. Ethically sourced. Expertly roasted. Unforgettably smooth.</p>
+
+    <div class="cta-row">
+      <button class="btn-order">
+        Order Now
+        <span class="arrow-circle">↗</span>
+      </button>
+      <button class="btn-find">Find Your Brew</button>
+    </div>
+  </div>
+
+  <!-- RIGHT product -->
+  <div class="product">
+    <!-- brand.png: place in same folder as this file -->
+    <img class="brand-img" src="brand.png" alt="Verna Coffee Premium Blend"
+      onerror="this.style.opacity='0'"/>
+
+    <div class="rating">
+      <div class="stars">★★★★★</div>
+      <div class="rating-label">1200+ Satisfied Customers</div>
+      <div class="avatars">
+        <div class="av av1">A</div>
+        <div class="av av2">J</div>
+        <div class="av av3">M</div>
+        <div class="av av4">K</div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- BOTTOM BAR -->
+<footer>
+  <div class="drink">
+    <svg class="leaf" viewBox="0 0 28 22" fill="none"><path d="M14,1 C14,1 5,7 4,14 C3,19 7,22 11,21 C15,20 17,16 16,11 C18,15 21,19 25,19 C25,19 27,13 23,9 C19,5 14,1 14,1Z" fill="rgba(245,230,208,0.6)"/></svg>
+    Cappuccino
+  </div>
+  <div class="drink">
+    <svg class="leaf" viewBox="0 0 28 22" fill="none"><path d="M14,1 C14,1 5,7 4,14 C3,19 7,22 11,21 C15,20 17,16 16,11 C18,15 21,19 25,19 C25,19 27,13 23,9 C19,5 14,1 14,1Z" fill="rgba(245,230,208,0.6)"/></svg>
+    Latte
+  </div>
+  <div class="drink">
+    <svg class="leaf" viewBox="0 0 28 22" fill="none"><path d="M14,1 C14,1 5,7 4,14 C3,19 7,22 11,21 C15,20 17,16 16,11 C18,15 21,19 25,19 C25,19 27,13 23,9 C19,5 14,1 14,1Z" fill="rgba(245,230,208,0.6)"/></svg>
+    Espresso
+  </div>
+  <div class="drink">
+    <svg class="leaf" viewBox="0 0 28 22" fill="none"><path d="M14,1 C14,1 5,7 4,14 C3,19 7,22 11,21 C15,20 17,16 16,11 C18,15 21,19 25,19 C25,19 27,13 23,9 C19,5 14,1 14,1Z" fill="rgba(245,230,208,0.6)"/></svg>
+    Mocha
+  </div>
+  <div class="drink">
+    <svg class="leaf" viewBox="0 0 28 22" fill="none"><path d="M14,1 C14,1 5,7 4,14 C3,19 7,22 11,21 C15,20 17,16 16,11 C18,15 21,19 25,19 C25,19 27,13 23,9 C19,5 14,1 14,1Z" fill="rgba(245,230,208,0.6)"/></svg>
+    Americano
+  </div>
+</footer>
+
+</div>
+</body>
+</html>

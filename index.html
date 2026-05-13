@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Verna Coffee — Brewed to Awaken</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,800;0,900;1,700;1,800&family=Nunito+Sans:wght@300;400;600&display=swap" rel="stylesheet"/><style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --c-dark:       #1A0C06;
+    --c-deep:       #2B1509;
+    --c-mid:        #4A2510;
+    --c-warm:       #6B3A18;
+    --c-roast:      #8B5020;
+    --c-latte:      #C4844A;
+    --c-cream:      #E8C89A;
+    --c-mist:       #F2DFC4;
+    --c-band:       #2E1608;
+    --c-text:       #F5E6D0;
+    --c-muted:      rgba(230,195,150,0.65);
+    --c-accent:     #A06030;
+    --c-highlight:  #D4956A;
+    --font-display: 'Nunito Sans',sans-serif;
+    --font-body:    'Nunito', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--c-dark);
+    color: var(--c-text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── PAGE ── */
+  .page {
+    width: 100%;
+    min-height: 100vh;
+    background-image: url('background-image.png');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+
+
+  /* ── NAVIGATION ── */
+  nav {
+    position: relative;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: clamp(14px, 2.5vw, 22px) clamp(18px, 5vw, 48px);
+    gap: 12px;
+  }
+
+  /* LOGO IMAGE — place logo.png in the same folder as this file */
+  .logo-img {
+    display: none;
+    height: 10px;
+    width:120px;
+  }
+
+  /* Fallback text — shown only if logo.png fails to load */
+  .logo-fallback {
+    display: none;
+    flex-direction: column;
+    line-height: 1;
+  }
+  .logo-name {
+    font-family: var(--font-display);
+    font-size: clamp(20px, 3vw, 28px);
+    font-weight: 700;
+    color: var(--c-mist);
+    letter-spacing: 0.5px;
+  }
+  .logo-tagline {
+    font-size: clamp(7px, 1vw, 9px);
+    color: rgba(196,132,74,0.7);
+    letter-spacing: 2.5px;
+    font-weight: 300;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  .nav-pill {
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 0.5px solid rgba(196,132,74,0.18);
+    border-radius: 100px;
+    padding: clamp(8px,1vw,12px) clamp(18px,2.5vw,32px);
+    display: flex;
+    gap: clamp(16px,2.5vw,32px);
+    align-items: center;
+  }
+
+  .nav-pill a {
+    color: rgba(232,200,154,0.85);
+    font-size: clamp(11px,1.2vw,14px);
+    font-weight: 400;
+    text-decoration: none;
+    letter-spacing: 0.3px;
+    transition: color 0.2s;
+    white-space: nowrap;
+  }
+
+  .nav-pill a:hover { color: var(--c-mist); }
+
+  .nav-buy {
+    background: var(--c-cream);
+    border: none;
+    border-radius: 100px;
+    padding: clamp(7px,1vw,10px) clamp(16px,2vw,26px);
+    color: var(--c-dark);
+    font-size: clamp(10px,1.2vw,13px);
+    font-weight: 500;
+    cursor: pointer;
+    letter-spacing: 0.3px;
+    transition: background 0.2s;
+    white-space: nowrap;
+    font-family: var(--font-body);
+    flex-shrink: 0;
+  }
+
+  .nav-buy:hover {
+    background: var(--c-mist);
+  }
+
+  /* ── HERO BODY ── */
+  .hero {
+    position: relative;
+    z-index: 10;
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    padding: clamp(16px,3vw,32px) clamp(18px,5vw,48px) clamp(24px,4vw,48px);
+    gap: clamp(24px, 5vw, 72px);
+  }
+
+  /* ── LEFT COPY ── */
+  .hero-copy {
+    flex: 1;
+    min-width: 0;
+    animation: fadeUp 0.9s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .badge-row {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: clamp(14px,2.5vw,22px);
+    animation: fadeUp 0.9s 0.1s ease both;
+  }
+
+  .badge-icon {
+    width: 14px; height: 14px;
+    flex-shrink: 0;
+    color: rgba(196,132,74,0.85);
+  }
+
+  .badge-text {
+    font-size: clamp(9px,1.1vw,11px);
+    color: rgba(196,132,74,0.85);
+    letter-spacing: 1.4px;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+
+  .headline {
+    font-family: var(--font-display);
+    line-height: 1.08;
+    margin-bottom: clamp(14px,2vw,20px);
+    animation: fadeUp 0.9s 0.15s ease both;
+  }
+
+  .headline em {
+    display: block;
+    font-style: italic;
+    font-weight: 800;
+    font-size: clamp(28px, 4.8vw, 58px);
+    color: #f5e6d0;
+    letter-spacing: -0.5px;
+  }
+
+  .headline strong {
+    display: block;
+    font-style: normal;
+    font-size: clamp(38px, 5.5vw, 72px);
+    color: #FFFFFF;
+    font-weight: 900;
+  }
+
+  .subtext {
+    font-size: clamp(12px,1.3vw,15px);
+    color: var(--c-muted);
+    line-height: 1.75;
+    max-width: 400px;
+    font-weight: 300;
+    margin-bottom: clamp(24px,3vw,36px);
+    animation: fadeUp 0.9s 0.2s ease both;
+  }
+
+  .cta-row {
+    display: flex;
+    align-items: center;
+    gap: clamp(12px,2vw,20px);
+    flex-wrap: wrap;
+    animation: fadeUp 0.9s 0.25s ease both;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--c-cream);
+    border: none;
+    border-radius: 100px;
+    padding: clamp(10px,1.5vw,14px) clamp(18px,3vw,28px);
+    color: var(--c-dark);
+    font-size: clamp(11px,1.3vw,13px);
+    font-weight: 500;
+    cursor: pointer;
+    font-family: var(--font-body);
+    letter-spacing: 0.4px;
+    transition: transform 0.2s, background 0.2s;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    background: var(--c-mist);
+  }
+
+  .btn-arrow {
+    width: 22px; height: 22px;
+    background: var(--c-dark);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px;
+    flex-shrink: 0;
+    color: var(--c-cream);
+  }
+
+  .btn-secondary {
+    color: var(--c-text);
+    font-size: clamp(11px,1.3vw,13px);
+    cursor: pointer;
+    letter-spacing: 0.3px;
+    border: none;
+    padding-bottom: 0;
+    transition: color 0.2s;
+    background: none;
+    font-family: var(--font-body);
+  }
+
+  .btn-secondary:hover {
+    color: var(--c-cream);
+  }
+
+ 
+  /* ── BOTTOM BAR ── */
+  .bottom-bar {
+    position: relative;
+    z-index: 10;
+    background: rgba(10,4,1,0.55);
+    border-top: 0.5px solid rgba(139,80,32,0.2);
+    padding: clamp(12px,2vw,18px) clamp(18px,5vw,48px);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .coffee-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(220,185,140,0.75);
+    font-size: clamp(10px,1.3vw,13px);
+    font-weight: 400;
+    letter-spacing: 0.4px;
+    cursor: pointer;
+    transition: color 0.2s;
+    white-space: nowrap;
+  }
+
+  .coffee-item:hover { color: var(--c-mist); }
+
+  .sep {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .sep svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  /* ── RESPONSIVE: TABLET ── */
+  @media (max-width: 860px) {
+    .nav-pill { display: none; }
+
+    .hero {
+      flex-direction: column-reverse;
+      align-items: center;
+      text-align: center;
+      padding-bottom: clamp(80px,14vw,110px);
+      padding-top: clamp(8px,2vw,16px);
+      gap: 12px;
+    }
+
+    .hero-copy { display: flex; flex-direction: column; align-items: center; }
+    .badge-row { justify-content: center; }
+    .subtext { max-width: 480px; text-align: center; margin-left: auto; margin-right: auto; }
+    .cta-row { justify-content: center; }
+    .hero-product { width: clamp(260px, 55vw, 420px); }
+    .brand-img { max-height: 55vh; }
+    .rating-badge { left: 50%; transform: translateX(-50%); bottom: clamp(25px, 5vw, 55px); }
+    .sep:nth-child(even) { display: none; }
+  }
+
+  /* ── RESPONSIVE: MOBILE ── */
+  @media (max-width: 520px) {
+    .page {
+      background-image: url('phone-background-image.png');
+    }
+    .hero {
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      padding-top: clamp(40px, 10vw, 80px);
+      padding-bottom: clamp(70px, 16vw, 120px);
+    }
+    .hero-copy { flex: 0 0 auto; }
+    nav { flex-wrap: wrap; gap: 8px; }
+    .nav-buy { margin-left: auto; }
+    .hero-product { width: clamp(220px, 75vw, 340px); }
+    .brand-img { max-height: 50vh; }
+    .rating-badge { left: 50%; transform: translateX(-50%); bottom: 10px; min-width: 180px; }
+    .bottom-bar { justify-content: center; gap: 8px 16px; }
+    .sep { display: none; }
+    .coffee-item { font-size: 11px; }
+  }
+
+  @media (max-width: 360px) {
+    .headline em  { font-size: 24px; }
+    .headline strong { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- NAV -->
+  <nav>
+    <!-- LOGO: place logo.png in the same folder as this HTML file -->
+    <a class="logo" href="#">
+      <img
+        class="logo-img"
+        src="logo.png"
+        alt="Verna Coffee"
+      />
+      <span class="logo-fallback">
+        <span class="logo-name">Verna</span>
+        <span class="logo-tagline">Coffee Shop</span>
+      </span>
+    </a>
+    <div class="nav-pill">
+      <a href="#">Best Sellers</a>
+      <a href="#">About</a>
+      <a href="#">Testimonials</a>
+      <a href="#">FAQ</a>
+      <a href="#">Contact</a>
+    </div>
+    <button class="nav-buy">Buy Now</button>
+  </nav>
+
+  <!-- HERO -->
+  <main class="hero">
+
+    <!-- LEFT COPY -->
+    <div class="hero-copy">
+      <div class="badge-row">
+        <svg class="badge-icon" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1" y="1" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1"/>
+          <path d="M4 7C4 7 5.5 4 7 7C8.5 10 10 7 10 7" stroke="currentColor" stroke-width="1" fill="none" stroke-linecap="round"/>
+        </svg>
+        <span class="badge-text">100% Ethically Sourced &nbsp;·&nbsp; Small-Batch Roasted</span>
+      </div>
+
+      <h1 class="headline">
+        <em>Brewed to Awaken.</em>
+        <strong>Crafted to Inspire.</strong>
+      </h1>
+
+      <p class="subtext">
+        Start your day with more than just caffeine — sip bold flavor, rich aroma,
+        and a moment of clarity in every cup. Ethically sourced. Expertly roasted.
+        Unforgettably smooth.
+      </p>
+
+      <div class="cta-row">
+        <button class="btn-primary">
+          Order Now
+          <span class="btn-arrow">↗</span>
+        </button>
+        <button class="btn-secondary">Find Your Brew</button>
+      </div>
+    </div>
+
+
+  </main>
+
+  <!-- BOTTOM BAR -->
+  <footer class="bottom-bar">
+    <div class="coffee-item">Cappuccino</div>
+    <div class="sep">
+      <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M7 2C7 2 4 5 4 7.5C4 10 7 12 7 12C7 12 10 10 10 7.5C10 5 7 2 7 2Z" fill="#7FB069"/>
+      </svg>
+    </div>
+    <div class="coffee-item">Latte</div>
+    <div class="sep">
+      <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M7 2C7 2 4 5 4 7.5C4 10 7 12 7 12C7 12 10 10 10 7.5C10 5 7 2 7 2Z" fill="#7FB069"/>
+      </svg>
+    </div>
+    <div class="coffee-item">Espresso</div>
+    <div class="sep">
+      <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M7 2C7 2 4 5 4 7.5C4 10 7 12 7 12C7 12 10 10 10 7.5C10 5 7 2 7 2Z" fill="#7FB069"/>
+      </svg>
+    </div>
+    <div class="coffee-item">Mocha</div>
+    <div class="sep">
+      <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M7 2C7 2 4 5 4 7.5C4 10 7 12 7 12C7 12 10 10 10 7.5C10 5 7 2 7 2Z" fill="#7FB069"/>
+      </svg>
+    </div>
+    <div class="coffee-item">Americano</div>
+  </footer>
+
+</div>
+</body>
+</html>
